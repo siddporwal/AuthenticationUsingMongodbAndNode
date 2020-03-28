@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
+   
     fname: {
         type: String,
         required: true,
@@ -24,6 +25,12 @@ const userSchema = mongoose.Schema({
             }
         }
     },
+    mobile:{
+        type: String,
+        required: true,
+        minLength:10,
+        maxLength: 10
+    },
     password: {
         type: String,
         required: true,
@@ -34,7 +41,10 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    createdDate: { type: Date, default: Date.now }
+
+
 })
 
 userSchema.pre('save', async function (next) {
