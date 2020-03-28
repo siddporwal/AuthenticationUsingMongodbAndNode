@@ -8,9 +8,10 @@ router.post('/users', async (req, res) => {
     // Create a new user
     try {
         const user = new User(req.body)
+        const status = 1
         await user.save()
         const token = await user.generateAuthToken()
-        res.status(201).send({ user, token })
+        res.status(201).send({status, user, token })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -21,11 +22,12 @@ router.post('/users/login', async(req, res) => {
     try {
         const { email, password } = req.body
         const user = await User.findByCredentials(email, password)
+        const status = 1
         if (!user) {
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const token = await user.generateAuthToken()
-        res.send({ user, token })
+        res.send({ status,user, token })
     } catch (error) {
         res.status(400).send(error)
     }
