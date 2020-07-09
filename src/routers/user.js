@@ -27,7 +27,7 @@ router.post('/users/login', async(req, res) => {
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const token = await user.generateAuthToken()
-        res.send({ status,user, token })
+        res.send({ status,user,token })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -62,5 +62,7 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
         res.status(500).send(error)
     }
 })
+
+
 
 module.exports = router
